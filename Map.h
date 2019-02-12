@@ -7,13 +7,13 @@ class Map : public Granica
 {
 protected:
 	// длина карты
-	unsigned int m_dlina_karti;
+	const unsigned int m_dlina_karti;
 
 	// ширина карты
-	unsigned int m_shirina_karti;
+	const unsigned int m_shirina_karti;
 
 	// карта
-	char* m_p_map;
+	char** m_p_map;
 
 public:
 	// конструктор
