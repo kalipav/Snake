@@ -7,18 +7,14 @@
 #include "Snake.cpp"
 #include "Food.h"
 
-// отрисовка слоёв: карта -> змея -> еда
-
-// конструктор коробки: карта -> змея -> еда
-
-
 class Korobka
 {
 protected:
 	// карта
 	Map* m_p_map;
 
-	//Snake m_snake;
+	// змейка
+	Snake* m_p_snake;
 
 
 	//Food m_food;

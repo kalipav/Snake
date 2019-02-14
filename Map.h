@@ -1,9 +1,7 @@
 ﻿#ifndef _MAP_H_
 #define _MAP_H_
 
-#include "Granica.h"  // содержит описание границы
-
-class Map : public Granica
+class Map
 {
 protected:
 	// длина карты
@@ -13,7 +11,7 @@ protected:
 	const unsigned int m_shirina_karti;
 
 	// карта
-	char** m_p_map;
+	char** m_pp_map;
 
 public:
 	// конструктор
@@ -21,6 +19,15 @@ public:
 
 	// деструктор
 	~Map();
+
+	// оператор присваивания для копии карты
+	//Map operator= (const Map&);
+
+	// установить координаты головы змейки
+	//void Get_coord_for_head(int*);
+
+	// проверка на размещение объектов на карте
+	bool Can_it_place(int*);
 };
 
 #endif

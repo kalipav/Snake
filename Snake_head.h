@@ -6,19 +6,19 @@ class Snake_head
 protected:
 	// символ головы змейки
 	const char m_head;
+
+	// координаты головы змейки {коорд. по длине; коорд. по ширине}
+	int m_head_coord[2];
+
 public:
 	// конструктор
-	Snake_head():
-	m_head(SYMBOL_SNAKE_HEAD)
-	{
-		std::cout << "Sozdana golova zmei.\n";
-	};
+	Snake_head(const Map*);
 	
 	// деструктор
-	~Snake_head()
-	{
-		std::cout << "Golova zmei osvobogdena.\n";
-	};
+	~Snake_head();
+
+	// помещает во входной массив координаты головы
+	void Get_head_coord(int*);
 };
 
 #endif
