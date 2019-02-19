@@ -4,9 +4,6 @@
 class Snake_body_segment
 {
 protected:
-	// символ тельца змейки
-	const char m_body;
-
 	// координаты сегмента {коорд. по длине; коорд. по ширине}
 	int m_coord_segm[2];
 
@@ -16,6 +13,9 @@ public:
 
 	// деструктор
 	~Snake_body_segment();
+
+	// помещает во входной массив координаты сегмента
+	void Get_segment_coord(int*);
 };
 
 #endif

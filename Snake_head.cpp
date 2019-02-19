@@ -2,8 +2,7 @@
 
 // конструктор
 // [in] const Map* - указатель на карту
-Snake_head::Snake_head(const Map* p_MAP):
-m_head(SYMBOL_SNAKE_HEAD)
+Snake_head::Snake_head(const Map* p_MAP)
 {
 	/*
 	// получить координаты головы змейки
@@ -16,9 +15,10 @@ m_head(SYMBOL_SNAKE_HEAD)
 		// генерация возможных координат головы
 		m_head_coord[0] = 1;
 		m_head_coord[1] = 1;
-	} while (!const_cast <Map*>(p_MAP)->Can_it_place(m_head_coord)); // ругается на константность
+	} while (const_cast <Map*>(p_MAP)->Can_it_place(m_head_coord)); // ругается на константность + необходима инверсия
 
-	std::cout << "Sozdana golova zmei.\n";
+	std::cout << "Sozdana golova zmei s parametrami:\n";
+	std::cout << "Koordinati golovi: " << m_head_coord[0] << " " << m_head_coord[1] << "\n\n";
 }
 
 // деструктор
@@ -27,7 +27,7 @@ Snake_head::~Snake_head()
 	std::cout << "Golova zmei osvobogdena.\n";
 }
 
-// возвращает координаты головы
+// помещает во входной массив координаты головы
 // [in/out] int* - массив координат головы
 void Snake_head::Get_head_coord(int* p_mas_coord)
 {

@@ -3,8 +3,7 @@
 // конструктор
 // [in] const Snake_head* - голова змейки (объект)
 // [in] const Map* - указатель на карту
-Snake_body_segment::Snake_body_segment(const Snake_head* p_HEAD, const Map* p_MAP):
-m_body(SYMBOL_SNAKE_BODY)
+Snake_body_segment::Snake_body_segment(const Snake_head* p_HEAD, const Map* p_MAP)
 {
 	// получает координаты головы
 	int head_coord[2];
@@ -38,12 +37,20 @@ m_body(SYMBOL_SNAKE_BODY)
 		};
 	} while (const_cast <Map*>(p_MAP)->Can_it_place(m_coord_segm)); // ругается на константность
 
-	std::cout << "Sozdano tel'ce zmei.\n";
+	std::cout << "Sozdan segment zmei s parametrami:\n";
+	std::cout << "Koordinati segmenta: " << m_coord_segm[0] << " " << m_coord_segm[1] << "\n\n";
 }
 
 // деструктор
 Snake_body_segment::~Snake_body_segment()
 {
-	std::cout << "Tel'ce zmei osvobogdeno.\n";
+	std::cout << "Segment zmei osvobogden.\n";
 }
 
+// помещает во входной массив координаты сегмента
+// [in/out] int* - массив координат сегмента
+void Snake_body_segment::Get_segment_coord(int* p_in_coord)
+{
+	p_in_coord[0] = m_coord_segm[0];
+	p_in_coord[1] = m_coord_segm[1];
+}

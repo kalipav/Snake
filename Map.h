@@ -5,10 +5,10 @@ class Map
 {
 protected:
 	// длина карты
-	const unsigned int m_dlina_karti;
+	unsigned int m_dlina_karti;
 
 	// ширина карты
-	const unsigned int m_shirina_karti;
+	unsigned int m_shirina_karti;
 
 	// карта
 	char** m_pp_map;
@@ -28,6 +28,12 @@ public:
 
 	// проверка на размещение объектов на карте
 	bool Can_it_place(int*);
+
+	// вернуть длину карты
+	unsigned int Get_dliny_karti();
+
+	// вернуть ширину карты
+	unsigned int Get_shiriny_karti();
 };
 
 #endif

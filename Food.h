@@ -4,14 +4,14 @@
 class Food
 {
 protected:
-	const char m_food;
+	// положение еды на карте
+	//char** m_pp_food_on_map;
 
 public:
 	// конструктор
-	Food():
-	m_food(SYMBOL_FOOD)
+	Food()
 	{
-		std::cout << "Eda sozdana.\n";
+		std::cout << "Eda sozdana s parametrami:\n";
 	};
 
 	// деструктор

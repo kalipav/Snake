@@ -27,30 +27,31 @@ m_shirina_karti(r_SHIRINA_KARTI < MIN_SHIRINA_KARTI ? MIN_SHIRINA_KARTI : r_SHIR
     };
 
     // заносим символы границы в первую и последнюю строки
-	for (unsigned int i = 0; i < m_shirina_karti; i++)
-	{
-		m_pp_map[0][i] = SYMBOL_GRANICA;
-		m_pp_map[m_dlina_karti - 1][i] = SYMBOL_GRANICA;
-	};
-
-	 // заносим символы границы в первый и последний столбец
 	for (unsigned int i = 0; i < m_dlina_karti; i++)
 	{
 		m_pp_map[i][0] = SYMBOL_GRANICA;
 		m_pp_map[i][m_shirina_karti - 1] = SYMBOL_GRANICA;
 	};
-    std::cout << "Karta sozdana.\n";
+
+	 // заносим символы границы в первый и последний столбец
+	for (unsigned int i = 0; i < m_shirina_karti; i++)
+	{
+		m_pp_map[0][i] = SYMBOL_GRANICA;
+		m_pp_map[m_dlina_karti-1][i] = SYMBOL_GRANICA;
+	};
+    std::cout << "Karta sozdana, dlina = " << m_dlina_karti << ", shirina = " << m_shirina_karti << "\n\n";
 
     // удалить или закомментировать
-    std::cout << "Otrisovka:\n";
-    for (unsigned int i = 0; i < m_dlina_karti; i++)
+    std::cout << "Otrisovka karti:\n";  // отрисовка идет построчно, поэтому i - ширина, j - длина
+    for (unsigned int i = 0; i < m_shirina_karti; i++)
     {
-    	for (unsigned int j = 0; j < m_shirina_karti; j++)
+    	for (unsigned int j = 0; j < m_dlina_karti; j++)
     	{
-    		std::cout << m_pp_map[i][j];
+    		std::cout << m_pp_map[j][i];
     	};
     	std::cout << "\n";
     };
+    std::cout << "\n";
 }
 
 // деструктор
@@ -132,10 +133,22 @@ bool Map::Can_it_place(int* p_coord)
 	// если координата не занята - true (объект можно разместить), иначе - false
 	if (m_pp_map[first][second] == SYMBOL_PROSTRANSTVA)
 	{
-		return true;
+		return false; // возвращает false, чтобы можно было выйти из вызывающего цикла без использования инверсии
 	}
 	else
 	{
-		return false;
+		return true; // означает продолжить вызывающий цикл, то есть координата не найдена
 	};
+}
+
+// вернуть длину карты
+unsigned int Map::Get_dliny_karti()
+{
+	return m_dlina_karti;
+}
+
+// вернуть ширину карты
+unsigned int Map::Get_shiriny_karti()
+{
+	return m_shirina_karti;
 }

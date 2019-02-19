@@ -4,9 +4,6 @@
 class Snake_head
 {
 protected:
-	// символ головы змейки
-	const char m_head;
-
 	// координаты головы змейки {коорд. по длине; коорд. по ширине}
 	int m_head_coord[2];
 

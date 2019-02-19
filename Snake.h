@@ -13,10 +13,16 @@ protected:
 	Snake_head* m_p_head;
 
 	// тельце змейки
-	std::deque <Snake_body_segment> m_body;
+	std::deque <Snake_body_segment*> m_body;
 
-	// положение змейки на карте                   <-------------------
-	//char** m_pp_snake_on_map;
+	// положение змейки на карте
+	char** m_pp_snake_on_map;
+
+	// длина карты
+	unsigned int m_dlina_karti;
+
+	// ширина карты
+	unsigned int m_shirina_karti;
 
 public:
 	// конструктор
