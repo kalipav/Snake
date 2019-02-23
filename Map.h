@@ -27,13 +27,16 @@ public:
 	//void Get_coord_for_head(int*);
 
 	// проверка на размещение объектов на карте
-	bool Can_it_place(int*);
+	bool Can_it_place(const int*) const;
 
 	// вернуть длину карты
-	unsigned int Get_dliny_karti();
+	unsigned int Get_dliny_karti() const;
 
 	// вернуть ширину карты
-	unsigned int Get_shiriny_karti();
+	unsigned int Get_shiriny_karti() const;
+
+	// вернуть значение по координате
+	char Get_znachenie_po_coord(const unsigned int&, const unsigned int&) const;
 };
 
 #endif

@@ -124,11 +124,12 @@ void Map::Get_coord_for_head(int* p_coord_head)
 */
 
 // проверка на размещение объектов на карте
-bool Map::Can_it_place(int* p_coord)
+// [in] const int* - массив координат для чтения
+bool Map::Can_it_place(const int* p_COORD) const
 {
 	// координаты
-	int first = p_coord[0];
-	int second = p_coord[1];
+	int first = p_COORD[0];
+	int second = p_COORD[1];
 
 	// если координата не занята - true (объект можно разместить), иначе - false
 	if (m_pp_map[first][second] == SYMBOL_PROSTRANSTVA)
@@ -142,13 +143,19 @@ bool Map::Can_it_place(int* p_coord)
 }
 
 // вернуть длину карты
-unsigned int Map::Get_dliny_karti()
+unsigned int Map::Get_dliny_karti() const
 {
 	return m_dlina_karti;
 }
 
 // вернуть ширину карты
-unsigned int Map::Get_shiriny_karti()
+unsigned int Map::Get_shiriny_karti() const
 {
 	return m_shirina_karti;
+}
+
+// вернуть значение по координате
+char Map::Get_znachenie_po_coord(const unsigned int& r_COORD_PO_DLINE, const unsigned int& r_COORD_PO_SHIRINE) const
+{
+	return m_pp_map[r_COORD_PO_DLINE][r_COORD_PO_SHIRINE];
 }

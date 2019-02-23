@@ -87,3 +87,28 @@ Snake::~Snake()
 
 	std::cout << "Zmeika osvobojdena.\n";
 }
+
+// проверка на размещение объектов на карте, чтобы не попасть на змейку
+// [in] const int* - массив координат для чтения
+bool Snake::Can_it_place(const int* p_COORD) const
+{
+	// координаты
+	int first = p_COORD[0];
+	int second = p_COORD[1];
+
+	// если координата не занята - true (объект можно разместить), иначе - false
+	if (m_pp_snake_on_map[first][second] == SYMBOL_PROSTRANSTVA)
+	{
+		return false; // возвращает false, чтобы можно было выйти из вызывающего цикла без использования инверсии
+	}
+	else
+	{
+		return true; // означает продолжить вызывающий цикл, то есть координата не найдена
+	};
+}
+
+// вернуть значение по координате
+char Snake::Get_znachenie_po_coord(const unsigned int& r_COORD_PO_DLINE, const unsigned int& r_COORD_PO_SHIRINE) const
+{
+	return m_pp_snake_on_map[r_COORD_PO_DLINE][r_COORD_PO_SHIRINE];
+}

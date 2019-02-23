@@ -11,6 +11,9 @@ Korobka::Korobka(const unsigned int& r_DLINA_MAP, const unsigned int& r_SHIRINA_
 	// конструктор змейки
 	m_p_snake = new Snake(m_p_map);
 
+	// еда
+	m_p_food = NULL;
+
     std::cout << "Korobka sozdana.\n";
 }
 
@@ -19,6 +22,77 @@ Korobka::~Korobka()
 {
 	delete m_p_map;
 	delete m_p_snake;
+	delete m_p_food;
 
 	std::cout << "Korobka osvobojdena.\n";
+}
+
+// поместить еду в коробку
+void Korobka::Generate_food()
+{
+	m_p_food = new Food(m_p_map, m_p_snake);
+}
+
+// возвращает длину коробки
+unsigned int Korobka::Get_dlina_box() const
+{
+	return m_p_map->Get_dliny_karti();
+}
+
+// возвращает ширину коробки
+unsigned int Korobka::Get_shirina_box() const
+{
+	return m_p_map->Get_shiriny_karti();
+}
+
+// создает комплексный слой, содержащий все объекты
+void Korobka::Get_complex_layer(char** pp_complex_layer) const
+{
+	// заполняет комплексный слой значениями с карты
+	for (unsigned int i = 0; i < m_p_map->Get_dliny_karti(); i++)
+	{
+		for (unsigned int j = 0; j < m_p_map->Get_shiriny_karti(); j++)
+		{
+			pp_complex_layer[i][j] = m_p_map->Get_znachenie_po_coord(i, j);
+		}
+	};
+
+	// заполняет комплексный слой значениями с силуэта змейки
+	for (unsigned int i = 0; i < m_p_map->Get_dliny_karti(); i++)
+	{
+		for (unsigned int j = 0; j < m_p_map->Get_shiriny_karti(); j++)
+		{
+			if (m_p_snake->Get_znachenie_po_coord(i, j) == SYMBOL_PROSTRANSTVA)
+			{
+				continue;
+			}
+			else
+			{
+				pp_complex_layer[i][j] = m_p_snake->Get_znachenie_po_coord(i, j);
+			};
+		}
+	};
+
+	// заполняет комплексный слой значениями с силуэта еды
+	if (m_p_food != NULL) // еда присутствует в поле
+	{
+		for (unsigned int i = 0; i < m_p_map->Get_dliny_karti(); i++)
+		{
+			for (unsigned int j = 0; j < m_p_map->Get_shiriny_karti(); j++)
+			{
+				if (m_p_food->Get_znachenie_po_coord(i, j) == SYMBOL_PROSTRANSTVA)
+				{
+					continue;
+				}
+				else
+				{
+					pp_complex_layer[i][j] = m_p_food->Get_znachenie_po_coord(i, j);
+				};
+			}
+		};
+	}
+	else // еда отсутствует в поле
+	{
+		return;
+	}
 }

@@ -29,7 +29,7 @@ Snake_head::~Snake_head()
 
 // помещает во входной массив координаты головы
 // [in/out] int* - массив координат головы
-void Snake_head::Get_head_coord(int* p_mas_coord)
+void Snake_head::Get_head_coord(int* p_mas_coord) const
 {
 	p_mas_coord[0] = m_head_coord[0];
 	p_mas_coord[1] = m_head_coord[1];

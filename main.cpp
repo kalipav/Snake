@@ -8,12 +8,24 @@
 
 #include "Korobka.h"
 #include "Korobka.cpp"
+#include "Other.cpp"   // содержит функции, не вошедшие ни в какие классы
 
 int main()
 {
 	Korobka my_korobka(DLINA_KARTI, SHIRINA_KARTI);
+	my_korobka.Generate_food();
+	Draw_frame(&my_korobka);
 
+	/*
+	for(;;)
+	{
+		Korobka my_korobka(DLINA_KARTI, SHIRINA_KARTI);
+		my_korobka.Generate_food();
+		Draw_frame(&my_korobka);
 
-
+		//std::system("clear");
+		//usleep(PAUSE_FOR_RANDOM);
+	};
+	*/
 	return 0;
 }

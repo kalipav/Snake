@@ -49,7 +49,7 @@ Snake_body_segment::~Snake_body_segment()
 
 // помещает во входной массив координаты сегмента
 // [in/out] int* - массив координат сегмента
-void Snake_body_segment::Get_segment_coord(int* p_in_coord)
+void Snake_body_segment::Get_segment_coord(int* p_in_coord) const
 {
 	p_in_coord[0] = m_coord_segm[0];
 	p_in_coord[1] = m_coord_segm[1];

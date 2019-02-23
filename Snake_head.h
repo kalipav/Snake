@@ -15,7 +15,7 @@ public:
 	~Snake_head();
 
 	// помещает во входной массив координаты головы
-	void Get_head_coord(int*);
+	void Get_head_coord(int*) const;
 };
 
 #endif

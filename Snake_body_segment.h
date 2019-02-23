@@ -15,7 +15,7 @@ public:
 	~Snake_body_segment();
 
 	// помещает во входной массив координаты сегмента
-	void Get_segment_coord(int*);
+	void Get_segment_coord(int*) const;
 };
 
 #endif
