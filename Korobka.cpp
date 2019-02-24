@@ -96,3 +96,84 @@ void Korobka::Get_complex_layer(char** pp_complex_layer) const
 		return;
 	}
 }
+
+// отрисовка кадра
+void Korobka::Draw_frame() const
+{
+	// длина области отрисовки
+	const unsigned int dlina = m_p_map->Get_dliny_karti();
+
+	// ширина области отрисовки
+	const unsigned int shirina = m_p_map->Get_shiriny_karti();
+
+	// массив с комплексным слоем, на котором находятся и карта, и змейка, и еда
+	char** pp_complex_layer = new char* [dlina];
+	for (unsigned int i = 0; i < dlina; i++)
+	{
+		pp_complex_layer[i] = new char [shirina];
+	};
+
+		// запись комплексного слоя
+	// заполняет комплексный слой значениями с карты
+	for (unsigned int i = 0; i < dlina; i++)
+	{
+		for (unsigned int j = 0; j < shirina; j++)
+		{
+			pp_complex_layer[i][j] = m_p_map->Get_znachenie_po_coord(i, j);
+		}
+	};
+
+	// заполняет комплексный слой значениями с силуэта змейки
+	for (unsigned int i = 0; i < dlina; i++)
+	{
+		for (unsigned int j = 0; j < shirina; j++)
+		{
+			if (m_p_snake->Get_znachenie_po_coord(i, j) == SYMBOL_PROSTRANSTVA)
+			{
+				continue;
+			}
+			else
+			{
+				pp_complex_layer[i][j] = m_p_snake->Get_znachenie_po_coord(i, j);
+			};
+		}
+	};
+
+	// заполняет комплексный слой значениями с силуэта еды
+	if (m_p_food != NULL) // если еда присутствует в поле
+	{
+		for (unsigned int i = 0; i < dlina; i++)
+		{
+			for (unsigned int j = 0; j < shirina; j++)
+			{
+				if (m_p_food->Get_znachenie_po_coord(i, j) == SYMBOL_PROSTRANSTVA)
+				{
+					continue;
+				}
+				else
+				{
+					pp_complex_layer[i][j] = m_p_food->Get_znachenie_po_coord(i, j);
+				};
+			}
+		};
+	};
+
+	// отрисовка комплексного слоя
+	std::cout << "-----------------------------------------------\n\n";
+    for (unsigned int i = 0; i < shirina; i++)
+    {
+    	for (unsigned int j = 0; j < dlina; j++)
+    	{
+    		std::cout << pp_complex_layer[j][i];
+    	};
+    	std::cout << "\n";
+    };
+    std::cout << "\n-----------------------------------------------\n";
+
+	// очистка массива
+	for (unsigned int i = 0; i < dlina; i++)
+	{
+		delete [] pp_complex_layer[i];
+	};
+	delete [] pp_complex_layer;
+}

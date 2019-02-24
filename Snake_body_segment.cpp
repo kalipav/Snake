@@ -13,9 +13,8 @@ Snake_body_segment::Snake_body_segment(const Snake_head* p_HEAD, const Map* p_MA
 	int choise;
 	do
 	{
-		//необходим генератор случ. чисел для свича                 <------------
-		choise = 0;
-
+		// генерация случайного выбора
+		choise = Back_random(4);
 		switch(choise)
 		{
 		case 0:

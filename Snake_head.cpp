@@ -4,18 +4,13 @@
 // [in] const Map* - указатель на карту
 Snake_head::Snake_head(const Map* p_MAP)
 {
-	/*
-	// получить координаты головы змейки
-	const_cast <Map*>(p_MAP)->Get_coord_for_head(m_head_coord); // ругается на константность
-	*/
-
 	// перебор возможных координат размещения головы
 	do
 	{
-		// генерация возможных координат головы
-		m_head_coord[0] = 1;
-		m_head_coord[1] = 1;
-	} while (const_cast <Map*>(p_MAP)->Can_it_place(m_head_coord)); // ругается на константность + необходима инверсия
+		// генерация случайного положения головы змейки
+		m_head_coord[0] = Back_random(const_cast <Map*>(p_MAP)->Get_dliny_karti());
+		m_head_coord[1] = Back_random(const_cast <Map*>(p_MAP)->Get_shiriny_karti());
+	} while (const_cast <Map*>(p_MAP)->Can_it_place(m_head_coord)); // ругается на константность
 
 	std::cout << "Sozdana golova zmei s parametrami:\n";
 	std::cout << "Koordinati golovi: " << m_head_coord[0] << " " << m_head_coord[1] << "\n\n";

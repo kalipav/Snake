@@ -38,6 +38,9 @@ public:
 
 	// создает комплексный слой, содержащий все объекты
 	void Get_complex_layer(char**) const;
+
+	// отрисовка кадра
+	void Draw_frame() const;
 };
 
 

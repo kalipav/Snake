@@ -30,9 +30,9 @@ Food::Food(const Map* p_MAP, const Snake* p_SNAKE)
     // проверка на возможность размещения
     do
     {
-    	// генератор случ. позиции                                     <----------------------------
-    	temp_coord[0] = 18;
-    	temp_coord[1] = 8;
+    	// генерация случайной позиции
+    	temp_coord[0] = Back_random(m_dlina_karti);
+    	temp_coord[1] = Back_random(m_shirina_karti);
     } while (const_cast <Map*>(p_MAP)->Can_it_place(temp_coord)||
     		 const_cast <Snake*>(p_SNAKE)->Can_it_place(temp_coord)); // необходим знак "или", а не "и"
 

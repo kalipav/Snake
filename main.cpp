@@ -6,26 +6,29 @@
 #include <ctime>    // посев случайных чисел - srand(static_cast <unsigned int> (time(0)|clock()));
 #include <deque>
 
+#include "Other.h"   // содержит функции, не вошедшие ни в какие классы
 #include "Korobka.h"
+#include "Other.cpp"
 #include "Korobka.cpp"
-#include "Other.cpp"   // содержит функции, не вошедшие ни в какие классы
 
 int main()
 {
-	Korobka my_korobka(DLINA_KARTI, SHIRINA_KARTI);
-	my_korobka.Generate_food();
-	Draw_frame(&my_korobka);
-
-	/*
-	for(;;)
+	for (;;)
 	{
+		// создаем коробку
 		Korobka my_korobka(DLINA_KARTI, SHIRINA_KARTI);
-		my_korobka.Generate_food();
-		Draw_frame(&my_korobka);
 
-		//std::system("clear");
-		//usleep(PAUSE_FOR_RANDOM);
+		// создаем еду
+		my_korobka.Generate_food();
+
+		// отрисовка
+		my_korobka.Draw_frame();
+
+		// пауза между отрисовками
+		usleep(PAUSE_DRAW_FRAME);
+
+		// очистка экрана
+		std::system("clear");
 	};
-	*/
 	return 0;
 }
