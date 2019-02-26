@@ -13,16 +13,16 @@
 
 int main()
 {
+	// создаем коробку
+	Korobka my_korobka(DLINA_KARTI, SHIRINA_KARTI);
+
 	for (;;)
 	{
-		// создаем коробку
-		Korobka my_korobka(DLINA_KARTI, SHIRINA_KARTI);
-
-		// создаем еду
-		my_korobka.Generate_food();
-
 		// отрисовка
 		my_korobka.Draw_frame();
+
+		// игровая механика
+		my_korobka.Game_mechanic();
 
 		// пауза между отрисовками
 		usleep(PAUSE_DRAW_FRAME);
@@ -30,5 +30,6 @@ int main()
 		// очистка экрана
 		std::system("clear");
 	};
+
 	return 0;
 }

@@ -16,6 +16,9 @@ public:
 
 	// помещает во входной массив координаты головы
 	void Get_head_coord(int*) const;
+
+	// устанавливает новые координаты головы
+	void Set_head_coord(const int*);
 };
 
 #endif

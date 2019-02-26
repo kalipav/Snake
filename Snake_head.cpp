@@ -1,7 +1,7 @@
 ﻿#include "Snake_head.h"
 
 // конструктор
-// [in] const Map* - указатель на карту
+// [in] const Map* - карта
 Snake_head::Snake_head(const Map* p_MAP)
 {
 	// перебор возможных координат размещения головы
@@ -29,3 +29,12 @@ void Snake_head::Get_head_coord(int* p_mas_coord) const
 	p_mas_coord[0] = m_head_coord[0];
 	p_mas_coord[1] = m_head_coord[1];
 }
+
+// устанавливает новые координаты головы
+// [in] const int* - новые координаты
+void Snake_head::Set_head_coord(const int* p_COORD)
+{
+	m_head_coord[0] = p_COORD[0];
+	m_head_coord[1] = p_COORD[1];
+}
+

@@ -16,6 +16,9 @@ public:
 
 	// помещает во входной массив координаты сегмента
 	void Get_segment_coord(int*) const;
+
+	// устанавливает новые координаты сегмента
+	void Set_segment_coord(const int*);
 };
 
 #endif

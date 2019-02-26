@@ -2,10 +2,10 @@
 #define _KOROBKA_H_
 
 #include "Map.h"
-#include "Map.cpp"
 #include "Snake.h"
-#include "Snake.cpp"
 #include "Food.h"
+#include "Map.cpp"
+#include "Snake.cpp"
 #include "Food.cpp"
 
 class Korobka
@@ -20,15 +20,15 @@ protected:
 	// еда
 	Food* m_p_food;
 
+	// поместить еду в коробку
+	void Generate_food();
+
 public:
 	// конструктор
 	Korobka(const unsigned int&, const unsigned int&);
 
 	// деструктор
 	~Korobka();
-
-	// поместить еду в коробку
-	void Generate_food();
 
 	// возвращает длину коробки
 	unsigned int Get_dlina_box() const;
@@ -41,6 +41,9 @@ public:
 
 	// отрисовка кадра
 	void Draw_frame() const;
+
+	// игровая механика
+	void Game_mechanic();
 };
 
 

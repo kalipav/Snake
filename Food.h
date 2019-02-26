@@ -22,6 +22,9 @@ public:
 
 	// вернуть значение по координате
 	char Get_znachenie_po_coord(const unsigned int&, const unsigned int&) const;
+
+	// проверка на размещение объектов на карте, чтобы не попасть на еду
+	bool Can_it_place(const int*) const;
 };
 
 #endif

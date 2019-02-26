@@ -44,6 +44,7 @@ void Draw_frame(const Korobka* p_BOX)
 
 // возвращает случайное значение из указанного диапазона [0; n - 1]
 // [in] const int& - численно равно верхнему значению диапазона + 1
+// [out] int - случайное значение из диапазона
 int Back_random(const unsigned int& r_DIAPAZON)
 {
 	unsigned int rand_num;

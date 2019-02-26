@@ -34,18 +34,21 @@ void Korobka::Generate_food()
 }
 
 // возвращает длину коробки
+// [out] unsigned int - длина коробки
 unsigned int Korobka::Get_dlina_box() const
 {
 	return m_p_map->Get_dliny_karti();
 }
 
 // возвращает ширину коробки
+// [out] unsigned int - ширина коробки
 unsigned int Korobka::Get_shirina_box() const
 {
 	return m_p_map->Get_shiriny_karti();
 }
 
 // создает комплексный слой, содержащий все объекты
+// [in/out] char** - указатель на комплексный слой, который нужно заполнить
 void Korobka::Get_complex_layer(char** pp_complex_layer) const
 {
 	// заполняет комплексный слой значениями с карты
@@ -176,4 +179,17 @@ void Korobka::Draw_frame() const
 		delete [] pp_complex_layer[i];
 	};
 	delete [] pp_complex_layer;
+}
+
+// игровая механика
+void Korobka::Game_mechanic()
+{
+	// передвинуть змейку
+	m_p_snake->Snake_move(m_p_map);
+
+
+
+
+	// поместить еду в коробку
+	//Generate_food();
 }

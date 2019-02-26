@@ -24,6 +24,9 @@ protected:
 	// ширина карты
 	unsigned int m_shirina_karti;
 
+	// перерисовать силуэт змейки
+	void Redraw_siluet();
+
 public:
 	// конструктор
 	Snake(const Map*);
@@ -36,6 +39,9 @@ public:
 
 	// вернуть значение по координате
 	char Get_znachenie_po_coord(const unsigned int&, const unsigned int&) const;
+
+	// передвинуть змейку
+	void Snake_move(const Map*);
 };
 
 #endif

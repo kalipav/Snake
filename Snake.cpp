@@ -89,7 +89,8 @@ Snake::~Snake()
 }
 
 // проверка на размещение объектов на карте, чтобы не попасть на змейку
-// [in] const int* - массив координат для чтения
+// [in] const int* - массив координат
+// [out] bool - результат: можно или нельзя разместить
 bool Snake::Can_it_place(const int* p_COORD) const
 {
 	// координаты
@@ -108,7 +109,109 @@ bool Snake::Can_it_place(const int* p_COORD) const
 }
 
 // вернуть значение по координате
+// [in] const unsigned int& - координата по длине
+// [in] const unsigned int& - координата по ширине
+// [out] char - символ c силуэта змейки по входящим координатам
 char Snake::Get_znachenie_po_coord(const unsigned int& r_COORD_PO_DLINE, const unsigned int& r_COORD_PO_SHIRINE) const
 {
 	return m_pp_snake_on_map[r_COORD_PO_DLINE][r_COORD_PO_SHIRINE];
+}
+
+// передвинуть змейку
+// [in] const Map* - карта
+void Snake::Snake_move(const Map* p_MAP)
+{
+	// создаем массив для размещения старых координат головы
+	int old_head[2];
+
+	// получаем координаты головы
+	m_p_head->Get_head_coord(old_head);
+
+		// выбираем куда можно сместиться
+	// переменная сгенерированного выбора
+	int choise;
+
+	// массив с новыми координатами головы
+	int new_head[2];
+
+	// цикл выбора новых координат головы
+	do
+	{
+		// генерация случайного числа из диапазона [0;3]
+		choise = Back_random(4);
+
+		switch(choise)
+		{
+		case 0:
+			new_head[0] = old_head[0] + 1;
+			new_head[1] = old_head[1];
+			break;
+		case 1:
+			new_head[0] = old_head[0];
+			new_head[1] = old_head[1] + 1;
+			break;
+		case 2:
+			new_head[0] = old_head[0] - 1;
+			new_head[1] = old_head[1];
+			break;
+		case 3:
+			new_head[0] = old_head[0];
+			new_head[1] = old_head[1] - 1;
+			break;
+		};
+	} while (const_cast <Map*>(p_MAP)->Can_it_place(new_head)   || // ругается на константность, необходим символ "или"
+			 this->Can_it_place(new_head));
+
+	// массив временных координат
+	int temp_coord[2];
+
+		// проходим по всем сегментам змейки и смещаем координаты в них
+	for (std::deque<Snake_body_segment*>::const_iterator IT = m_body.begin(); IT != m_body.end(); IT++)
+	{
+		// если нет следующего элемента в деке
+		if (IT+1 == m_body.end())
+		{
+			// установить старые координаты головы в единственный сегмент
+			(*IT)->Set_segment_coord(old_head);
+		}
+		else
+		{
+
+		};
+	};
+
+	// устанавливаем новые координаты головы
+	m_p_head->Set_head_coord(new_head);
+
+	// перерисовать силуэт змейки
+	this->Redraw_siluet();
+}
+
+// перерисовать силуэт змейки
+void Snake::Redraw_siluet()
+{
+    // заполняем массив символами пространства
+    for (unsigned int i = 0; i < m_dlina_karti; i++)
+    {
+    	for (unsigned int j = 0; j < m_shirina_karti; j++)
+    	{
+    		m_pp_snake_on_map[i][j] = SYMBOL_PROSTRANSTVA;
+    	}
+    };
+
+    // размещаем голову змейки в массиве
+    int temp_coord[2]; // объявляем временные координаты
+    m_p_head->Get_head_coord(temp_coord); // получаем координаты головы
+    int first = temp_coord[0];
+    int second = temp_coord[1];
+    m_pp_snake_on_map[first][second] = SYMBOL_SNAKE_HEAD;
+
+    // размещаем сегменты змейки в массиве
+    for (std::deque<Snake_body_segment*>::const_iterator IT = m_body.begin(); IT != m_body.end(); IT++)
+    {
+    	const_cast<Snake_body_segment*>(*IT)->Get_segment_coord(temp_coord); // иначе ругается на константность
+        first = temp_coord[0];
+        second = temp_coord[1];
+        m_pp_snake_on_map[first][second] = SYMBOL_SNAKE_BODY;
+    };
 }

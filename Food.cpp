@@ -1,6 +1,8 @@
 ﻿#include "Food.h"
 
 // конструктор
+// [in] const Map* - карта
+// [in] const Snake* - змейка
 Food::Food(const Map* p_MAP, const Snake* p_SNAKE)
 {
 	// получаем размеры карты
@@ -71,8 +73,31 @@ Food::~Food()
 }
 
 // вернуть значение по координате
+// [in] const unsigned int& - конст. ссылка на значение координаты по длине
+// [in] const unsigned int& - конст. ссылка на значение координаты по ширине
+// [out] char - значение по координате силуэта еды
 char Food::Get_znachenie_po_coord(const unsigned int& r_COORD_PO_DLINE, const unsigned int& r_COORD_PO_SHIRINE) const
 {
 	return m_pp_food_on_map[r_COORD_PO_DLINE][r_COORD_PO_SHIRINE];
+}
+
+// проверка на размещение объектов на карте, чтобы не попасть на еду
+// [in] const int* - массив координат
+// [out] bool - результат: можно или нельзя разместить
+bool Food::Can_it_place(const int* p_COORD) const
+{
+	// координаты
+	int first = p_COORD[0];
+	int second = p_COORD[1];
+
+	// если координата не занята - true (объект можно разместить), иначе - false
+	if (m_pp_food_on_map[first][second] == SYMBOL_PROSTRANSTVA)
+	{
+		return false; // возвращает false, чтобы можно было выйти из вызывающего цикла без использования инверсии
+	}
+	else
+	{
+		return true; // означает продолжить вызывающий цикл, то есть координата не найдена
+	};
 }
 

@@ -1,8 +1,8 @@
 ﻿#include "Snake_body_segment.h"
 
 // конструктор
-// [in] const Snake_head* - голова змейки (объект)
-// [in] const Map* - указатель на карту
+// [in] const Snake_head* - голова змейки
+// [in] const Map* - карта
 Snake_body_segment::Snake_body_segment(const Snake_head* p_HEAD, const Map* p_MAP)
 {
 	// получает координаты головы
@@ -53,3 +53,12 @@ void Snake_body_segment::Get_segment_coord(int* p_in_coord) const
 	p_in_coord[0] = m_coord_segm[0];
 	p_in_coord[1] = m_coord_segm[1];
 }
+
+// устанавливает новые координаты сегмента
+// [in] const int* - новые координаты
+void Snake_body_segment::Set_segment_coord(const int* p_COORD)
+{
+	m_coord_segm[0] = p_COORD[0];
+	m_coord_segm[1] = p_COORD[1];
+}
+

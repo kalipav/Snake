@@ -124,7 +124,8 @@ void Map::Get_coord_for_head(int* p_coord_head)
 */
 
 // проверка на размещение объектов на карте
-// [in] const int* - массив координат для чтения
+// [in] const int* - указатель на массив c координатами
+// [out] bool - результат: можно или нельзя разместить
 bool Map::Can_it_place(const int* p_COORD) const
 {
 	// координаты
@@ -143,18 +144,23 @@ bool Map::Can_it_place(const int* p_COORD) const
 }
 
 // вернуть длину карты
+// [out] unsigned int - длина карты
 unsigned int Map::Get_dliny_karti() const
 {
 	return m_dlina_karti;
 }
 
 // вернуть ширину карты
+// [out] unsigned int - ширина карты
 unsigned int Map::Get_shiriny_karti() const
 {
 	return m_shirina_karti;
 }
 
 // вернуть значение по координате
+// [in] const unsigned int& - координата по длине
+// [in] const unsigned int& - координата по ширине
+// [out] char - символ карты по входящим координатам
 char Map::Get_znachenie_po_coord(const unsigned int& r_COORD_PO_DLINE, const unsigned int& r_COORD_PO_SHIRINE) const
 {
 	return m_pp_map[r_COORD_PO_DLINE][r_COORD_PO_SHIRINE];
