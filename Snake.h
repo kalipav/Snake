@@ -41,7 +41,10 @@ public:
 	char Get_znachenie_po_coord(const unsigned int&, const unsigned int&) const;
 
 	// передвинуть змейку
-	void Snake_move(const Map*);
+	void Snake_move(const Map*, bool);
+
+	// поместить во входной массив координаты последнего сегмента
+	void Get_last_segm_coord(int*) const;
 };
 
 #endif

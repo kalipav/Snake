@@ -119,7 +119,9 @@ char Snake::Get_znachenie_po_coord(const unsigned int& r_COORD_PO_DLINE, const u
 
 // передвинуть змейку
 // [in] const Map* - карта
-void Snake::Snake_move(const Map* p_MAP)
+// [in] const int* - массив с координатами еды
+// [in] bool - если true, то добавляется новый сегмент тельца змейки, иначе - нет
+void Snake::Snake_move(const Map* p_MAP, bool status)
 {
 	// создаем массив для размещения старых координат головы
 	int old_head[2];
@@ -159,38 +161,30 @@ void Snake::Snake_move(const Map* p_MAP)
 			new_head[1] = old_head[1] - 1;
 			break;
 		};
-	} while (const_cast <Map*>(p_MAP)->Can_it_place(new_head)   || // ругается на константность, необходим символ "или"
+	} while (const_cast<Map*>(p_MAP)->Can_it_place(new_head) || // ругается на константность, необходим символ "или"
 			 this->Can_it_place(new_head));
-
-	// массив временных координат
-	int temp_coord[2];
-
-		// проходим по всем сегментам змейки и смещаем координаты в них
-	for (std::deque<Snake_body_segment*>::const_iterator IT = m_body.begin(); IT != m_body.end(); IT++)
-	{
-		// если нет следующего элемента в деке
-		if (IT+1 == m_body.end())
-		{
-			// установить старые координаты головы в единственный сегмент
-			(*IT)->Set_segment_coord(old_head);
-		}
-		else
-		{
-
-		};
-	};
 
 	// устанавливаем новые координаты головы
 	m_p_head->Set_head_coord(new_head);
 
-	// перерисовать силуэт змейки
+		// редактируем тельце
+	// добавляем новый сегмент со старыми координатами головы перед остальными сегментами
+	m_body.push_front(new Snake_body_segment(old_head));
+
+	// удаляем сегмент, если координата еды не совпала с последней координатой тельца
+	if (status == false)
+	{
+		m_body.pop_back();
+	};
+
+	// перерисовываем силуэт змейки
 	this->Redraw_siluet();
 }
 
 // перерисовать силуэт змейки
 void Snake::Redraw_siluet()
 {
-    // заполняем массив символами пространства
+	 // заполняем массив символами пространства
     for (unsigned int i = 0; i < m_dlina_karti; i++)
     {
     	for (unsigned int j = 0; j < m_shirina_karti; j++)
@@ -214,4 +208,15 @@ void Snake::Redraw_siluet()
         second = temp_coord[1];
         m_pp_snake_on_map[first][second] = SYMBOL_SNAKE_BODY;
     };
+}
+
+// поместить во входной массив координаты последнего сегмента
+// [in/out] int* - массив, в который нужно разместить координаты
+void Snake::Get_last_segm_coord(int* p_coord) const
+{
+	// итератор на последний элемент дека (последний сегмент тельца змейки)
+	std::deque<Snake_body_segment*>::const_iterator ITER = m_body.end() - 1;
+
+	// копирование координат последнего сегмента
+	(*ITER)->Get_segment_coord(p_coord);
 }

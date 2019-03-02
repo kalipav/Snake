@@ -11,6 +11,9 @@ public:
 	// конструктор
 	Snake_body_segment(const Snake_head*, const Map*);
 
+	// конструктор с координатами
+	Snake_body_segment(const int*);
+
 	// деструктор
 	~Snake_body_segment();
 

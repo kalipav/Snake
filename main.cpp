@@ -14,7 +14,7 @@
 int main()
 {
 	// создаем коробку
-	Korobka my_korobka(DLINA_KARTI, SHIRINA_KARTI);
+	Korobka my_korobka(DLINA_KOROBKI, SHIRINA_KOROBKI);
 
 	for (;;)
 	{

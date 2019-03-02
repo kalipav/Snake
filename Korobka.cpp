@@ -30,7 +30,11 @@ Korobka::~Korobka()
 // поместить еду в коробку
 void Korobka::Generate_food()
 {
-	m_p_food = new Food(m_p_map, m_p_snake);
+	// если на карте нет еды, добавить
+	if (m_p_food == NULL)
+	{                                                                   // где-то нужно освободить память
+		m_p_food = new Food(m_p_map, m_p_snake);                        // <------------------------
+	};
 }
 
 // возвращает длину коробки
@@ -126,22 +130,6 @@ void Korobka::Draw_frame() const
 		}
 	};
 
-	// заполняет комплексный слой значениями с силуэта змейки
-	for (unsigned int i = 0; i < dlina; i++)
-	{
-		for (unsigned int j = 0; j < shirina; j++)
-		{
-			if (m_p_snake->Get_znachenie_po_coord(i, j) == SYMBOL_PROSTRANSTVA)
-			{
-				continue;
-			}
-			else
-			{
-				pp_complex_layer[i][j] = m_p_snake->Get_znachenie_po_coord(i, j);
-			};
-		}
-	};
-
 	// заполняет комплексный слой значениями с силуэта еды
 	if (m_p_food != NULL) // если еда присутствует в поле
 	{
@@ -159,6 +147,22 @@ void Korobka::Draw_frame() const
 				};
 			}
 		};
+	};
+
+	// заполняет комплексный слой значениями с силуэта змейки
+	for (unsigned int i = 0; i < dlina; i++)
+	{
+		for (unsigned int j = 0; j < shirina; j++)
+		{
+			if (m_p_snake->Get_znachenie_po_coord(i, j) == SYMBOL_PROSTRANSTVA)
+			{
+				continue;
+			}
+			else
+			{
+				pp_complex_layer[i][j] = m_p_snake->Get_znachenie_po_coord(i, j);
+			};
+		}
 	};
 
 	// отрисовка комплексного слоя
@@ -184,12 +188,40 @@ void Korobka::Draw_frame() const
 // игровая механика
 void Korobka::Game_mechanic()
 {
-	// передвинуть змейку
-	m_p_snake->Snake_move(m_p_map);
-
-
-
-
 	// поместить еду в коробку
-	//Generate_food();
+	Generate_food();
+
+	// убедиться, что координаты последнего сегмента тельца совпадают (true)/не совпадают (false) с координатами еды
+	bool status = Can_increase_snake();
+
+	// передвинуть змейку
+	m_p_snake->Snake_move(m_p_map, status);
 }
+
+// проверка на совпадение координат последнего сегмента змейки и координат еды
+bool Korobka::Can_increase_snake()
+{
+	// массив для размещения координат последнего сегмента
+	int last_segm_coord[2];
+
+	// получение координат последнего сегмента
+	m_p_snake->Get_last_segm_coord(last_segm_coord);
+
+	// координаты
+	int first = last_segm_coord[0];
+	int second = last_segm_coord[1];
+
+	// проверка находится ли в данной координате еда
+	if (m_p_food != NULL) // если указатель не нулевой
+	{
+		// если в координатах последнего сегмента есть еда
+		if (m_p_food->Get_znachenie_po_coord(first, second) == SYMBOL_FOOD)
+		{
+			delete m_p_food; // освбождаем еду
+			m_p_food = NULL; // зануляем указатель
+			return true;
+		};
+	};
+	return false;
+}
+

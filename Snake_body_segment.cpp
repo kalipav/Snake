@@ -40,6 +40,14 @@ Snake_body_segment::Snake_body_segment(const Snake_head* p_HEAD, const Map* p_MA
 	std::cout << "Koordinati segmenta: " << m_coord_segm[0] << " " << m_coord_segm[1] << "\n\n";
 }
 
+// конструктор с координатами
+// [in] const int* - координаты нового сегмента
+Snake_body_segment::Snake_body_segment(const int* p_COORD)
+{
+	m_coord_segm[0] = p_COORD[0];
+	m_coord_segm[1] = p_COORD[1];
+}
+
 // деструктор
 Snake_body_segment::~Snake_body_segment()
 {

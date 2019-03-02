@@ -5,8 +5,8 @@
 // [in] const unsigned int& - ширина карты
 Map::Map(const unsigned int& r_DLINA_KARTI, const unsigned int& r_SHIRINA_KARTI):
 // чтобы змейка поместилась в своб. пространстве
-m_dlina_karti(r_DLINA_KARTI < MIN_DLINA_KARTI ? MIN_DLINA_KARTI : r_DLINA_KARTI),
-m_shirina_karti(r_SHIRINA_KARTI < MIN_SHIRINA_KARTI ? MIN_SHIRINA_KARTI : r_SHIRINA_KARTI)
+m_dlina_karti(r_DLINA_KARTI < MIN_DLINA_KOROBKI ? MIN_DLINA_KOROBKI : r_DLINA_KARTI),
+m_shirina_karti(r_SHIRINA_KARTI < MIN_SHIRINA_KOROBKI ? MIN_SHIRINA_KOROBKI : r_SHIRINA_KARTI)
 {
 	// создаем карту
 	// сначала создается массив указателей на char, а потом массивы типа char

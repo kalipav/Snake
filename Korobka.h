@@ -23,6 +23,9 @@ protected:
 	// поместить еду в коробку
 	void Generate_food();
 
+	// проверка на совпадение координат последнего сегмента змейки и координат еды
+	bool Can_increase_snake();
+
 public:
 	// конструктор
 	Korobka(const unsigned int&, const unsigned int&);
