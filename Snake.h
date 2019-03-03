@@ -27,6 +27,9 @@ protected:
 	// перерисовать силуэт змейки
 	void Redraw_siluet();
 
+	// вычисляет координату, которая наиболее быстро приведёт к еде
+	void Fast_move(const int*, const int*, int*) const;
+
 public:
 	// конструктор
 	Snake(const Map*);
@@ -41,10 +44,13 @@ public:
 	char Get_znachenie_po_coord(const unsigned int&, const unsigned int&) const;
 
 	// передвинуть змейку
-	void Snake_move(const Map*, bool);
+	void Snake_move(const Map*, bool, const int*);
 
 	// поместить во входной массив координаты последнего сегмента
 	void Get_last_segm_coord(int*) const;
+
+	// поместить во входной массив координаты головы
+	void Get_head_coord(int*) const;
 };
 
 #endif

@@ -7,13 +7,13 @@
 
 
 // объявление параметров карты
-#define DLINA_KOROBKI   20  // устанавливает длину карты
-#define SHIRINA_KOROBKI 10  // устанавливает ширину карты
+#define DLINA_KOROBKI   141  // устанавливает длину карты
+#define SHIRINA_KOROBKI 36  // устанавливает ширину карты
 
 #define MIN_DLINA_KOROBKI   4  // минимальная длина карты, чтобы разместить змейку
 #define MIN_SHIRINA_KOROBKI 4  // минимальная ширина карты, чтобы разместить змейку
 
 
 // прочее
-#define PAUSE_DRAW_FRAME 500000 // задержка скрипта после отрисовки фрейма, нс
+#define PAUSE_DRAW_FRAME 0 // задержка скрипта после отрисовки фрейма, нс
 #define PAUSE_FOR_RANDOM 10000   // задержка для функции рандом, нс

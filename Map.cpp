@@ -15,7 +15,7 @@ m_shirina_karti(r_SHIRINA_KARTI < MIN_SHIRINA_KOROBKI ? MIN_SHIRINA_KOROBKI : r_
 	{
 		m_pp_map[i] = new char [m_shirina_karti];
 	};
-    std::cout << "Videlena pamjt' dlj karti.\n";
+    //std::cout << "Videlena pamjt' dlj karti.\n";
 
     // заносим символы свободного пространства
     for (unsigned int i = 0; i < m_dlina_karti; i++)
@@ -39,9 +39,10 @@ m_shirina_karti(r_SHIRINA_KARTI < MIN_SHIRINA_KOROBKI ? MIN_SHIRINA_KOROBKI : r_
 		m_pp_map[0][i] = SYMBOL_GRANICA;
 		m_pp_map[m_dlina_karti-1][i] = SYMBOL_GRANICA;
 	};
-    std::cout << "Karta sozdana, dlina = " << m_dlina_karti << ", shirina = " << m_shirina_karti << "\n\n";
+    //std::cout << "Karta sozdana, dlina = " << m_dlina_karti << ", shirina = " << m_shirina_karti << "\n\n";
 
     // удалить или закомментировать
+	/*
     std::cout << "Otrisovka karti:\n";  // отрисовка идет построчно, поэтому i - ширина, j - длина
     for (unsigned int i = 0; i < m_shirina_karti; i++)
     {
@@ -52,6 +53,7 @@ m_shirina_karti(r_SHIRINA_KARTI < MIN_SHIRINA_KOROBKI ? MIN_SHIRINA_KOROBKI : r_
     	std::cout << "\n";
     };
     std::cout << "\n";
+    */
 }
 
 // деструктор
@@ -64,7 +66,7 @@ Map::~Map()
 	};
 	delete [] m_pp_map;
 
-	std::cout << "Karta osvobogdena.\n";
+	//std::cout << "Karta osvobogdena.\n";
 }
 
 // оператор присваивания для копии карты

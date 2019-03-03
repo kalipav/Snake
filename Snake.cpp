@@ -23,7 +23,7 @@ Snake::Snake(const Map* p_MAP)
 	{
 		m_pp_snake_on_map[i] = new char [m_shirina_karti];
 	};
-    std::cout << "Videlena pamjt' dlj silueta zmeiki.\n";
+    //std::cout << "Videlena pamjt' dlj silueta zmeiki.\n";
 
     // заполняем массив символами пространства
     for (unsigned int i = 0; i < m_dlina_karti; i++)
@@ -51,6 +51,7 @@ Snake::Snake(const Map* p_MAP)
     };
 
     // удалить или закомментировать
+    /*
     std::cout << "Otrisovka silueta zmeiki:\n";  // отрисовка идет построчно, поэтому i - ширина, j - длина
     for (unsigned int i = 0; i < m_shirina_karti; i++)
     {
@@ -61,8 +62,9 @@ Snake::Snake(const Map* p_MAP)
     	std::cout << "\n";
     };
     std::cout << "\n";
+    */
 
-	std::cout << "Zmeika sozdana. Segmentov tel'ca zmei: " << m_body.size() << "\n\n";
+	//std::cout << "Zmeika sozdana. Segmentov tel'ca zmei: " << m_body.size() << "\n\n";
 }
 
 // деструктор
@@ -85,7 +87,7 @@ Snake::~Snake()
     };
     m_body.clear();
 
-	std::cout << "Zmeika osvobojdena.\n";
+	//std::cout << "Zmeika osvobojdena.\n";
 }
 
 // проверка на размещение объектов на карте, чтобы не попасть на змейку
@@ -119,9 +121,9 @@ char Snake::Get_znachenie_po_coord(const unsigned int& r_COORD_PO_DLINE, const u
 
 // передвинуть змейку
 // [in] const Map* - карта
-// [in] const int* - массив с координатами еды
 // [in] bool - если true, то добавляется новый сегмент тельца змейки, иначе - нет
-void Snake::Snake_move(const Map* p_MAP, bool status)
+// [in] const int* - массив с координатами еды
+void Snake::Snake_move(const Map* p_MAP, bool status, const int* p_FOOD_COORD)
 {
 	// создаем массив для размещения старых координат головы
 	int old_head[2];
@@ -129,40 +131,48 @@ void Snake::Snake_move(const Map* p_MAP, bool status)
 	// получаем координаты головы
 	m_p_head->Get_head_coord(old_head);
 
-		// выбираем куда можно сместиться
-	// переменная сгенерированного выбора
-	int choise;
-
 	// массив с новыми координатами головы
 	int new_head[2];
 
-	// цикл выбора новых координат головы
-	do
-	{
-		// генерация случайного числа из диапазона [0;3]
-		choise = Back_random(4);
+	// вычисляем координату, которая наиболее быстро приведёт к еде
+	Fast_move(old_head, p_FOOD_COORD, new_head);
 
-		switch(choise)
+	// проверяем, можно ли переместиться в новое положение
+	// если нельзя - осуществится вход в if
+	if (const_cast<Map*>(p_MAP)->Can_it_place(new_head) || // ругается на константность, необходим символ "или"
+	    this->Can_it_place(new_head))
+	{
+		// переменная сгенерированного выбора
+		int choise;
+
+		// цикл выбора новых координат головы
+		do
 		{
-		case 0:
-			new_head[0] = old_head[0] + 1;
-			new_head[1] = old_head[1];
-			break;
-		case 1:
-			new_head[0] = old_head[0];
-			new_head[1] = old_head[1] + 1;
-			break;
-		case 2:
-			new_head[0] = old_head[0] - 1;
-			new_head[1] = old_head[1];
-			break;
-		case 3:
-			new_head[0] = old_head[0];
-			new_head[1] = old_head[1] - 1;
-			break;
-		};
-	} while (const_cast<Map*>(p_MAP)->Can_it_place(new_head) || // ругается на константность, необходим символ "или"
-			 this->Can_it_place(new_head));
+			// генерация случайного числа из диапазона [0;3]
+			choise = Back_random(4);
+
+			switch(choise)
+			{
+			case 0:
+				new_head[0] = old_head[0] + 1;
+				new_head[1] = old_head[1];
+				break;
+			case 1:
+				new_head[0] = old_head[0];
+				new_head[1] = old_head[1] + 1;
+				break;
+			case 2:
+				new_head[0] = old_head[0] - 1;
+				new_head[1] = old_head[1];
+				break;
+			case 3:
+				new_head[0] = old_head[0];
+				new_head[1] = old_head[1] - 1;
+				break;
+			};
+		} while (const_cast<Map*>(p_MAP)->Can_it_place(new_head) || // ругается на константность, необходим символ "или"
+				 this->Can_it_place(new_head));
+	}
 
 	// устанавливаем новые координаты головы
 	m_p_head->Set_head_coord(new_head);
@@ -171,7 +181,7 @@ void Snake::Snake_move(const Map* p_MAP, bool status)
 	// добавляем новый сегмент со старыми координатами головы перед остальными сегментами
 	m_body.push_front(new Snake_body_segment(old_head));
 
-	// удаляем сегмент, если координата еды не совпала с последней координатой тельца
+	// удаляем сегмент, если координата еды не совпала со старыми координатами головы
 	if (status == false)
 	{
 		m_body.pop_back();
@@ -219,4 +229,46 @@ void Snake::Get_last_segm_coord(int* p_coord) const
 
 	// копирование координат последнего сегмента
 	(*ITER)->Get_segment_coord(p_coord);
+}
+
+// вычисляет координату, которая наиболее быстро приведёт к еде
+// [in] const int* - старые координаты головы
+// [in] const int* - координаты еды
+// [in/out] int* - заполняемый массив с новыми координатами головы
+void Snake::Fast_move(const int* p_OLD_HEAD, const int* p_COORD_FOOD, int* p_new_head) const
+{
+	// копируем координаты
+	p_new_head[0] = p_OLD_HEAD[0];
+	p_new_head[1] = p_OLD_HEAD[1];
+
+	// калибровка по длине и ширине, необходимо выбрать только один сдвиг
+	if (p_COORD_FOOD[0] < p_new_head[0])
+	{
+		p_new_head[0]--;
+	}
+	else
+	{
+		if (p_COORD_FOOD[0] > p_new_head[0])
+		{
+			p_new_head[0]++;
+		}
+		else
+		{
+			if (p_COORD_FOOD[1] > p_new_head[1])
+			{
+				p_new_head[1]++;
+			}
+			else // в любом случае двигаться вниз, если нет препятствий
+			{
+				p_new_head[1]--;
+			}
+		};
+	};
+}
+
+// поместить во входной массив координаты головы
+// [in/out] int* - массив, в который нужно разместить координаты
+void Snake::Get_head_coord(int* p_coord) const
+{
+	 m_p_head->Get_head_coord(p_coord);
 }

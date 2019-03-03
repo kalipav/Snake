@@ -36,8 +36,8 @@ Snake_body_segment::Snake_body_segment(const Snake_head* p_HEAD, const Map* p_MA
 		};
 	} while (const_cast <Map*>(p_MAP)->Can_it_place(m_coord_segm)); // ругается на константность
 
-	std::cout << "Sozdan segment zmei s parametrami:\n";
-	std::cout << "Koordinati segmenta: " << m_coord_segm[0] << " " << m_coord_segm[1] << "\n\n";
+	//std::cout << "Sozdan segment zmei s parametrami:\n";
+	//std::cout << "Koordinati segmenta: " << m_coord_segm[0] << " " << m_coord_segm[1] << "\n\n";
 }
 
 // конструктор с координатами
@@ -51,7 +51,7 @@ Snake_body_segment::Snake_body_segment(const int* p_COORD)
 // деструктор
 Snake_body_segment::~Snake_body_segment()
 {
-	std::cout << "Segment zmei osvobogden.\n";
+	//std::cout << "Segment zmei osvobogden.\n";
 }
 
 // помещает во входной массив координаты сегмента

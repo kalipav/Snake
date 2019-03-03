@@ -13,6 +13,12 @@ protected:
 	// ширина карты
 	unsigned int m_shirina_karti;
 
+	// координата положения еды по длине
+	int m_dlina_coord;
+
+	// координата положения еды по ширине
+	int m_shirina_coord;
+
 public:
 	// конструктор
 	Food(const Map*, const Snake*);
@@ -25,6 +31,9 @@ public:
 
 	// проверка на размещение объектов на карте, чтобы не попасть на еду
 	bool Can_it_place(const int*) const;
+
+	// помещает во входной массив координаты еды
+	void Get_food_coord(int*) const;
 };
 
 #endif

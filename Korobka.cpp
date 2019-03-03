@@ -14,7 +14,7 @@ Korobka::Korobka(const unsigned int& r_DLINA_MAP, const unsigned int& r_SHIRINA_
 	// еда
 	m_p_food = NULL;
 
-    std::cout << "Korobka sozdana.\n";
+    //std::cout << "Korobka sozdana.\n";
 }
 
 // деструктор
@@ -24,7 +24,7 @@ Korobka::~Korobka()
 	delete m_p_snake;
 	delete m_p_food;
 
-	std::cout << "Korobka osvobojdena.\n";
+	//std::cout << "Korobka osvobojdena.\n";
 }
 
 // поместить еду в коробку
@@ -32,8 +32,8 @@ void Korobka::Generate_food()
 {
 	// если на карте нет еды, добавить
 	if (m_p_food == NULL)
-	{                                                                   // где-то нужно освободить память
-		m_p_food = new Food(m_p_map, m_p_snake);                        // <------------------------
+	{
+		m_p_food = new Food(m_p_map, m_p_snake);
 	};
 }
 
@@ -166,7 +166,7 @@ void Korobka::Draw_frame() const
 	};
 
 	// отрисовка комплексного слоя
-	std::cout << "-----------------------------------------------\n\n";
+	//std::cout << "-----------------------------------------------\n\n";
     for (unsigned int i = 0; i < shirina; i++)
     {
     	for (unsigned int j = 0; j < dlina; j++)
@@ -175,7 +175,7 @@ void Korobka::Draw_frame() const
     	};
     	std::cout << "\n";
     };
-    std::cout << "\n-----------------------------------------------\n";
+    //std::cout << "\n-----------------------------------------------\n";
 
 	// очистка массива
 	for (unsigned int i = 0; i < dlina; i++)
@@ -191,33 +191,42 @@ void Korobka::Game_mechanic()
 	// поместить еду в коробку
 	Generate_food();
 
-	// убедиться, что координаты последнего сегмента тельца совпадают (true)/не совпадают (false) с координатами еды
+	// убедиться, что координаты головы совпадают (true)/не совпадают (false) с координатами еды
 	bool status = Can_increase_snake();
 
+	// массив с координатами еды
+	int food_coord[2];
+
+	// заполняем массив с координатами еды, в случае если указатель не нулевой
+	if (m_p_food != NULL)
+	{
+		m_p_food->Get_food_coord(food_coord);
+	};
+
 	// передвинуть змейку
-	m_p_snake->Snake_move(m_p_map, status);
+	m_p_snake->Snake_move(m_p_map, status, food_coord);
 }
 
 // проверка на совпадение координат последнего сегмента змейки и координат еды
 bool Korobka::Can_increase_snake()
 {
-	// массив для размещения координат последнего сегмента
-	int last_segm_coord[2];
+	// массив для размещения координат головы
+	int head_coord[2];
 
-	// получение координат последнего сегмента
-	m_p_snake->Get_last_segm_coord(last_segm_coord);
+	// получение координат головы
+	m_p_snake->Get_head_coord(head_coord);
 
 	// координаты
-	int first = last_segm_coord[0];
-	int second = last_segm_coord[1];
+	int first = head_coord[0];
+	int second = head_coord[1];
 
-	// проверка находится ли в данной координате еда
+	// проверка находится ли в данных координатах еда
 	if (m_p_food != NULL) // если указатель не нулевой
 	{
-		// если в координатах последнего сегмента есть еда
+		// если в координатах головы есть еда
 		if (m_p_food->Get_znachenie_po_coord(first, second) == SYMBOL_FOOD)
 		{
-			delete m_p_food; // освбождаем еду
+			delete m_p_food; // освобождаем еду
 			m_p_food = NULL; // зануляем указатель
 			return true;
 		};

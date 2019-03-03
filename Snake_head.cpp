@@ -12,14 +12,14 @@ Snake_head::Snake_head(const Map* p_MAP)
 		m_head_coord[1] = Back_random(const_cast <Map*>(p_MAP)->Get_shiriny_karti());
 	} while (const_cast <Map*>(p_MAP)->Can_it_place(m_head_coord)); // ругается на константность
 
-	std::cout << "Sozdana golova zmei s parametrami:\n";
-	std::cout << "Koordinati golovi: " << m_head_coord[0] << " " << m_head_coord[1] << "\n\n";
+	//std::cout << "Sozdana golova zmei s parametrami:\n";
+	//std::cout << "Koordinati golovi: " << m_head_coord[0] << " " << m_head_coord[1] << "\n\n";
 }
 
 // деструктор
 Snake_head::~Snake_head()
 {
-	std::cout << "Golova zmei osvobogdena.\n";
+	//std::cout << "Golova zmei osvobogdena.\n";
 }
 
 // помещает во входной массив координаты головы

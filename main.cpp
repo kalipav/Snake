@@ -16,6 +16,9 @@ int main()
 	// создаем коробку
 	Korobka my_korobka(DLINA_KOROBKI, SHIRINA_KOROBKI);
 
+	// очистка экрана
+	std::system("clear");
+
 	for (;;)
 	{
 		// отрисовка

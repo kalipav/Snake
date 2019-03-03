@@ -15,7 +15,7 @@ Food::Food(const Map* p_MAP, const Snake* p_SNAKE)
 	{
 		m_pp_food_on_map[i] = new char [m_shirina_karti];
 	};
-    std::cout << "Videlena pamjt' dlj silueta edi.\n";
+    //std::cout << "Videlena pamjt' dlj silueta edi.\n";
 
     // заполняем массив символами пространства
     for (unsigned int i = 0; i < m_dlina_karti; i++)
@@ -39,11 +39,12 @@ Food::Food(const Map* p_MAP, const Snake* p_SNAKE)
     		 const_cast <Snake*>(p_SNAKE)->Can_it_place(temp_coord)); // необходим знак "или", а не "и"
 
     // размещение силуэта еды
-    int first = temp_coord[0];
-    int second = temp_coord[1];
-    m_pp_food_on_map[first][second] = SYMBOL_FOOD;
+    m_dlina_coord = temp_coord[0];
+    m_shirina_coord = temp_coord[1];
+    m_pp_food_on_map[m_dlina_coord][m_shirina_coord] = SYMBOL_FOOD;
 
     // удалить или закомментировать
+    /*
     std::cout << "Otrisovka silueta edi:\n";  // отрисовка идет построчно, поэтому i - ширина, j - длина
     for (unsigned int i = 0; i < m_shirina_karti; i++)
     {
@@ -54,8 +55,9 @@ Food::Food(const Map* p_MAP, const Snake* p_SNAKE)
     	std::cout << "\n";
     };
     std::cout << "\n";
+    */
 
-	std::cout << "Eda sozdana.\n";
+	//std::cout << "Eda sozdana.\n";
 }
 
 // деструктор
@@ -69,7 +71,7 @@ Food::~Food()
 	delete [] m_pp_food_on_map;
 
 
-	std::cout << "Eda osvobojdena.\n";
+	//std::cout << "Eda osvobojdena.\n";
 }
 
 // вернуть значение по координате
@@ -99,5 +101,13 @@ bool Food::Can_it_place(const int* p_COORD) const
 	{
 		return true; // означает продолжить вызывающий цикл, то есть координата не найдена
 	};
+}
+
+// помещает во входной массив координаты еды
+// [in/out] int* - массив координат еды
+void Food::Get_food_coord(int* p_mas_coord) const
+{
+	p_mas_coord[0] = m_dlina_coord;
+	p_mas_coord[1] = m_shirina_coord;
 }
 
