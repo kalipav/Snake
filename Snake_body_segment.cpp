@@ -1,4 +1,8 @@
 ﻿#include "Snake_body_segment.h"
+#include "defines.h"
+#include "Snake_head.h"
+#include "Map.h"
+#include "Other.h"
 
 // конструктор
 // [in] const Snake_head* - голова змейки

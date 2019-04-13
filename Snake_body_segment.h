@@ -1,6 +1,9 @@
 ﻿#ifndef _SNAKE_BODY_SEGMENT_H_
 #define _SNAKE_BODY_SEGMENT_H_
 
+class Snake_head;
+class Map;
+
 class Snake_body_segment
 {
 protected:

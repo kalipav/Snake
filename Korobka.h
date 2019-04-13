@@ -1,12 +1,9 @@
 ﻿#ifndef _KOROBKA_H_
 #define _KOROBKA_H_
 
-#include "Map.h"
-#include "Snake.h"
-#include "Food.h"
-#include "Map.cpp"
-#include "Snake.cpp"
-#include "Food.cpp"
+class Map;
+class Snake;
+class Food;
 
 class Korobka
 {

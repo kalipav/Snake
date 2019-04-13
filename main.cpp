@@ -1,15 +1,13 @@
-﻿#include "defines.cpp" // содержит набор констант
+﻿#include "defines.h" // содержит набор констант
 
 #include <iostream>
-#include <unistd.h> // для usleep(1000000); + sleep(1); [если задержка 1 сек]
 #include <cstdlib>  // для очистки консоли - std::system("clear"); + rand();
 #include <ctime>    // посев случайных чисел - srand(static_cast <unsigned int> (time(0)|clock()));
 #include <deque>
+#include <windows.h>
 
 #include "Other.h"   // содержит функции, не вошедшие ни в какие классы
 #include "Korobka.h"
-#include "Other.cpp"
-#include "Korobka.cpp"
 
 int main()
 {
@@ -17,7 +15,7 @@ int main()
 	Korobka my_korobka(DLINA_KOROBKI, SHIRINA_KOROBKI);
 
 	// очистка экрана
-	std::system("clear");
+	std::system("cls");
 
 	for (;;)
 	{
@@ -28,10 +26,10 @@ int main()
 		my_korobka.Game_mechanic();
 
 		// пауза между отрисовками
-		usleep(PAUSE_DRAW_FRAME);
+		Sleep(PAUSE_DRAW_FRAME);
 
 		// очистка экрана
-		std::system("clear");
+		std::system("cls");
 	};
 
 	return 0;

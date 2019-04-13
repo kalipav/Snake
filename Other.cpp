@@ -1,4 +1,8 @@
 ﻿#include "Other.h"
+#include <cstdlib>  // для очистки консоли - std::system("clear"); + rand();
+#include "defines.h"
+#include <ctime>    // посев случайных чисел - srand(static_cast <unsigned int> (time(0)|clock()));
+#include <windows.h>
 
 /*
 // отрисовка кадра
@@ -50,7 +54,7 @@ int Back_random(const unsigned int& r_DIAPAZON)
 	unsigned int rand_num;
 	srand(static_cast <unsigned int> (time(0)|clock()));
 	rand_num = rand()%r_DIAPAZON;
-	usleep(PAUSE_FOR_RANDOM);
+	Sleep(PAUSE_FOR_RANDOM);
 	return rand_num;
 
 

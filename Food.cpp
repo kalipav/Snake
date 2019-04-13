@@ -1,4 +1,8 @@
 ﻿#include "Food.h"
+#include "Map.h"
+#include "Other.h"
+#include "defines.h"
+#include "Snake.h"
 
 // конструктор
 // [in] const Map* - карта

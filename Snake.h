@@ -1,10 +1,11 @@
 ﻿#ifndef _SNAKE_H_
 #define _SNAKE_H_
 
-#include "Snake_head.h"
-#include "Snake_head.cpp"
-#include "Snake_body_segment.h"
-#include "Snake_body_segment.cpp"
+#include <deque>
+
+class Snake_head;
+class Snake_body_segment;
+class Map;
 
 class Snake
 {

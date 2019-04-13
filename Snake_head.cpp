@@ -1,4 +1,7 @@
 ﻿#include "Snake_head.h"
+#include "defines.h"
+#include "Map.h"
+#include "Other.h"
 
 // конструктор
 // [in] const Map* - карта

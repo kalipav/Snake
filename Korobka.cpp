@@ -1,4 +1,9 @@
 ﻿#include "Korobka.h"
+#include "Map.h"
+#include "Snake.h"
+#include "Food.h"
+#include "defines.h"
+#include <iostream>
 
 // конструктор
 //[in] const unsigned int& - длина карты

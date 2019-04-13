@@ -1,6 +1,8 @@
 ﻿#ifndef _SNAKE_HEAD_H_
 #define _SNAKE_HEAD_H_
 
+class Map;
+
 class Snake_head
 {
 protected:
